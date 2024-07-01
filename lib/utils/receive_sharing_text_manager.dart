@@ -11,17 +11,25 @@ class ReceiveSharingTextManager {
   BehaviorSubject<ReceiveSharingText> get pendingListText => _pendingListText;
 
   void init() {
-    getReceivingSharingStream().listen((sharedText) async {
-      // Note: Prevent handle this when open magic link by validating raw text
-      // Can not check JoiningMagicLinkState by ReceivingSharingStream be invoked first
-      // Can not use Globals.handlingMagicLink too, by it only be assigned after
-      // this ReceivingSharingStream
-      if (sharedText != null && sharedText.isNotEmpty) {
-        if (Utilities.isTwakeLink(sharedText)) return;
-        clearPendingText();
-        _pendingListText.add(ReceiveSharingText(sharedText));
-      }
-    });
+    ReceiveSharingIntent.instance.getMediaStream().listen(
+      (event) {
+        // Note: Prevent handle this when open magic link by validating raw text
+        // Can not check JoiningMagicLinkState by ReceivingSharingStream be invoked first
+        // Can not use Globals.handlingMagicLink too, by it only be assigned after
+        // this ReceivingSharingStream
+        event.map((shared) {
+          if (shared.mimeType == "text/plain" &&
+              (shared.message?.isNotEmpty ?? false)) {
+            if (Utilities.isTwakeLink(shared.message!)) return;
+            clearPendingText();
+            _pendingListText.add(ReceiveSharingText(shared.message!));
+          }
+        });
+      },
+    );
+    // getReceivingSharingStream().listen((sharedText) async {
+
+    // });
   }
 
   void clearPendingText() {
@@ -36,10 +44,11 @@ class ReceiveSharingTextManager {
     clearPendingText();
   }
 
-  Stream<String?> getReceivingSharingStream() {
-    return Rx.merge([
-      Stream.fromFuture(ReceiveSharingIntent.getInitialText()),
-      ReceiveSharingIntent.getTextStream()
-    ]);
-  }
+  // Stream<String?> getReceivingSharingStream() {
+  //   return Rx.merge(ReceiveSharingIntent.instance.getMediaStream().fold<List<String>>([], (previous, element) {
+  //     var r = previous;
+  //     r.add(element.map((e) => e.))
+  //     return ;
+  //   }));
+  // }
 }

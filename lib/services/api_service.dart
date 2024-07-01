@@ -19,8 +19,8 @@ class ApiService {
   ApiService._() {
     _dio = Dio(BaseOptions(
       contentType: 'application/json',
-      connectTimeout: 60 * 1000, // 60 seconds to connect
-      receiveTimeout: 30 * 1000, // 30 seconds to receive data
+      connectTimeout: Duration(minutes: 1), // 60 seconds to connect
+      receiveTimeout: Duration(seconds: 30), // 30 seconds to receive data
     ));
 
     void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -47,15 +47,15 @@ class ApiService {
           '\nQUERYPARAMS: ${error.requestOptions.queryParameters}'
           '\nREQUEST PAYLOAD: ${error.requestOptions.data}');
       switch (error.type) {
-        case DioErrorType.cancel:
+        case DioExceptionType.cancel:
           // just successfully resolve request if user cancelled it
           handler.resolve(Response(
             data: const {},
             requestOptions: error.requestOptions,
           ));
           break;
-        case DioErrorType.connectTimeout:
-        case DioErrorType.receiveTimeout:
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.receiveTimeout:
           // log timeout event to sentry, for further investigation
           Sentry.captureMessage(
             'Request to API timed out\n'
@@ -66,7 +66,7 @@ class ApiService {
           );
           handler.reject(error);
           break;
-        case DioErrorType.response:
+        default:
           final sc = error.response?.statusCode;
           if (sc! >= 500) {
             // send all server side error to sentry, for further investigation
@@ -78,9 +78,6 @@ class ApiService {
                   'body: ${error.requestOptions.data}',
             );
           }
-          handler.reject(error);
-          break;
-        default:
           handler.reject(error);
       }
     }

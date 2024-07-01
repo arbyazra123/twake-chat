@@ -125,6 +125,6 @@ extension UriExtension on Uri {
 
 extension ListReceiveSharingFileExtension on List<ReceiveSharingFile> {
   bool isAllImages() {
-    return this.every((file) => file.type == SharedMediaType.IMAGE);
+    return this.every((file) => file.type == SharedMediaType.image);
   }
 }

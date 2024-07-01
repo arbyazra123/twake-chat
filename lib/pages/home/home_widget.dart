@@ -245,11 +245,11 @@ class _HomeWidgetState extends State<HomeWidget> with WidgetsBindingObserver {
     }
     _fileDownloaderPort.listen((dynamic data) {
       String id = data[0];
-      DownloadTaskStatus status = data[1];
-      if (status == DownloadTaskStatus.complete) {
+      int status = data[1];
+      if (status == DownloadTaskStatus.complete.index) {
         Get.find<FileDownloadCubit>()
             .handleAfterDownloaded(taskId: id, context: context);
-      } else if (status == DownloadTaskStatus.failed) {
+      } else if (status == DownloadTaskStatus.failed.index) {
         Get.find<FileDownloadCubit>().handleDownloadFailed(taskId: id);
       }
     });
@@ -260,7 +260,7 @@ class _HomeWidgetState extends State<HomeWidget> with WidgetsBindingObserver {
   }
 
   static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+      String id, int status, int progress) {
     final SendPort? send =
         IsolateNameServer.lookupPortByName('downloader_send_port');
     send?.send([id, status, progress]);

@@ -1,22 +1,14 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:twake/blocs/camera_cubit/camera_cubit.dart';
-import 'package:twake/blocs/channels_cubit/channels_cubit.dart';
 import 'package:twake/blocs/file_cubit/file_transition_cubit.dart';
 import 'package:twake/blocs/file_cubit/upload/file_upload_cubit.dart';
 import 'package:twake/blocs/gallery_cubit/gallery_cubit.dart';
 import 'package:twake/blocs/mentions_cubit/mentions_cubit.dart';
-import 'package:twake/blocs/messages_cubit/messages_cubit.dart';
 import 'package:twake/config/image_path.dart';
-import 'package:twake/models/file/file.dart';
-import 'package:twake/models/file/message_file.dart';
-import 'package:twake/models/file/upload/file_uploading.dart';
-import 'package:twake/models/globals/globals.dart';
 import 'package:twake/pages/chat/gallery/gallery_view.dart';
-import 'package:twake/repositories/messages_repository.dart';
 import 'package:twake/utils/constants.dart';
 import 'package:twake/utils/extensions.dart';
 import 'package:twake/utils/utilities.dart';
@@ -178,26 +170,32 @@ class _ComposeBar extends State<ComposeBar> {
                     _setSendButtonState(stateWithoutFileUploading: true);
                   },
                   config: Config(
-                    columns: 7,
-                    emojiSizeMax: 32.0,
-                    verticalSpacing: 0,
-                    horizontalSpacing: 0,
-                    initCategory: Category.RECENT,
-                    bgColor: Theme.of(context).colorScheme.secondaryContainer,
-                    indicatorColor: Theme.of(context).colorScheme.surface,
-                    iconColor: Theme.of(context).colorScheme.secondary,
-                    iconColorSelected: Theme.of(context).colorScheme.surface,
-                    progressIndicatorColor:
-                        Theme.of(context).colorScheme.surface,
-                    showRecentsTab: true,
-                    recentsLimit: 28,
-                    noRecentsText: AppLocalizations.of(context)!.noRecents,
-                    noRecentsStyle: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 20),
-                    categoryIcons: const CategoryIcons(),
-                    buttonMode: ButtonMode.MATERIAL,
+                    bottomActionBarConfig: BottomActionBarConfig(
+                      // showRecentsTab: true,
+                      // noRecentsText: AppLocalizations.of(context)!.noRecents,
+                      // noRecentsStyle: Theme.of(context)
+                      //     .textTheme
+                      //     .headline3!
+                      //     .copyWith(fontSize: 20),
+                      // bgColor: Theme.of(context).colorScheme.secondaryContainer,
+                      // progressIndicatorColor:
+                      //     Theme.of(context).colorScheme.surface,
+                    ),
+                    categoryViewConfig: CategoryViewConfig(
+                      indicatorColor: Theme.of(context).colorScheme.surface,
+                      iconColor: Theme.of(context).colorScheme.secondary,
+                      iconColorSelected: Theme.of(context).colorScheme.surface,
+                      initCategory: Category.RECENT,
+                      categoryIcons: const CategoryIcons(),
+                    ),
+                    emojiViewConfig: EmojiViewConfig(
+                      columns: 7,
+                      emojiSizeMax: 32.0,
+                      verticalSpacing: 0,
+                      horizontalSpacing: 0,
+                      recentsLimit: 28,
+                      buttonMode: ButtonMode.MATERIAL,
+                    ),
                   ),
                 ),
               ),

@@ -19,23 +19,32 @@ class EmojiBoard extends StatelessWidget {
           Get.find<MessageAnimationCubit>().endAnimation();
         },
         config: Config(
-          columns: 7,
-          emojiSizeMax: 32.0,
-          verticalSpacing: 0,
-          horizontalSpacing: 0,
-          initCategory: Category.RECENT,
-          bgColor: Theme.of(context).colorScheme.secondaryContainer,
-          indicatorColor: Theme.of(context).colorScheme.surface,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconColorSelected: Theme.of(context).colorScheme.surface,
-          progressIndicatorColor: Theme.of(context).colorScheme.surface,
-          showRecentsTab: true,
-          recentsLimit: 28,
-          noRecentsText: AppLocalizations.of(context)!.noRecents,
-          noRecentsStyle:
-              Theme.of(context).textTheme.headline3!.copyWith(fontSize: 20),
-          categoryIcons: const CategoryIcons(),
-          buttonMode: ButtonMode.MATERIAL,
+          bottomActionBarConfig: BottomActionBarConfig(
+              // showRecentsTab: true,
+              // noRecentsText: AppLocalizations.of(context)!.noRecents,
+              // noRecentsStyle: Theme.of(context)
+              //     .textTheme
+              //     .headline3!
+              //     .copyWith(fontSize: 20),
+              // bgColor: Theme.of(context).colorScheme.secondaryContainer,
+              // progressIndicatorColor:
+              //     Theme.of(context).colorScheme.surface,
+              ),
+          categoryViewConfig: CategoryViewConfig(
+            indicatorColor: Theme.of(context).colorScheme.surface,
+            iconColor: Theme.of(context).colorScheme.secondary,
+            iconColorSelected: Theme.of(context).colorScheme.surface,
+            initCategory: Category.RECENT,
+            categoryIcons: const CategoryIcons(),
+          ),
+          emojiViewConfig: EmojiViewConfig(
+            columns: 7,
+            emojiSizeMax: 32.0,
+            verticalSpacing: 0,
+            horizontalSpacing: 0,
+            recentsLimit: 28,
+            buttonMode: ButtonMode.MATERIAL,
+          ),
         ),
       ),
     );

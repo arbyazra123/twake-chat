@@ -38,7 +38,7 @@ class FileUploadSharingTile extends StatelessWidget {
   }
 
   Widget _buildFileTypeIcon() {
-    return receiveSharingFile.type == SharedMediaType.IMAGE
+    return receiveSharingFile.type == SharedMediaType.image
         ? Image.file(
             File(receiveSharingFile.parentPath + receiveSharingFile.name),
             width: double.maxFinite,
