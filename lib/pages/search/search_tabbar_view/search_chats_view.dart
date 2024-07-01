@@ -14,7 +14,7 @@ import 'package:twake/utils/translit.dart';
 
 class SearchChatsView extends StatefulWidget {
   final bool isAllTab;
-  SearchChatsView({this.isAllTab: false});
+  SearchChatsView({this.isAllTab = false});
   @override
   State<SearchChatsView> createState() => _SearchChatsViewState();
 }

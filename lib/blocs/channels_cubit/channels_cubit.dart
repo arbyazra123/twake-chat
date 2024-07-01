@@ -21,7 +21,7 @@ abstract class BaseChannelsCubit extends Cubit<ChannelsState> {
 
   BaseChannelsCubit({
     required ChannelsRepository repository,
-    this.isDirect: false,
+    this.isDirect= false,
   })  : _repository = repository,
         super(ChannelsInitial()) {
     // Set up socketIO listeners
@@ -33,8 +33,8 @@ abstract class BaseChannelsCubit extends Cubit<ChannelsState> {
   Future<void> fetch(
       {String? companyId,
       required String workspaceId,
-      bool localOnly: false,
-      bool isSelected: true}) async {
+      bool localOnly = false,
+      bool isSelected = true}) async {
     final channelsStream = _repository.fetch(
       companyId: companyId ?? Globals.instance.companyId!,
       workspaceId: workspaceId,

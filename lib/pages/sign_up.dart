@@ -368,7 +368,9 @@ class _SignUpState extends State<SignUp> {
               emailExistsErr = true;
               final stateRegistration = Get.find<RegistrationCubit>().state;
               if (stateRegistration is RegistrationAwaiting) {
+                debugPrint("--stateRegistration is RegistrationAwaiting--");
               } else {
+                debugPrint("--stateRegistration is NOT RegistrationAwaiting--");
                 if (_controller.text.indexOf(" ") == -1) {
                   _sendLink(_controller.text);
                 } else {

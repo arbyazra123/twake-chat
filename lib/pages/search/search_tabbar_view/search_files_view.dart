@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchFilesView extends StatefulWidget {
   final bool isAllTab;
-  SearchFilesView({this.isAllTab: false});
+  SearchFilesView({this.isAllTab = false});
   @override
   State<SearchFilesView> createState() => _SearchFilesViewState();
 }

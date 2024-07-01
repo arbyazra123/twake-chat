@@ -10,12 +10,12 @@ import 'package:twake/utils/twacode.dart';
 class QuoteMessage extends StatelessWidget {
   const QuoteMessage(
       {required this.message,
-      this.paddingLeft: 0,
-      this.paddingRight: 0,
-      this.paddingBottom: 0,
-      this.paddingTop: 0,
-      this.showCloseButton: false,
-      this.isExpanded: false,
+      this.paddingLeft = 0,
+      this.paddingRight = 0,
+      this.paddingBottom = 0,
+      this.paddingTop = 0,
+      this.showCloseButton = false,
+      this.isExpanded = false,
       Key? key})
       : super(key: key);
   final Message message;

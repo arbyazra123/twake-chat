@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchMediaView extends StatefulWidget {
   final bool isAllTab;
-  SearchMediaView({this.isAllTab: false});
+  SearchMediaView({this.isAllTab = false});
   @override
   State<SearchMediaView> createState() => _SearchMediaViewState();
 }

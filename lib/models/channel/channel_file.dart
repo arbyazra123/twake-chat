@@ -9,7 +9,7 @@ class ChannelFile extends Equatable {
   ChannelFile({
     required this.fileId,
     required this.senderName,
-    this.fileName: '',
+    this.fileName = '',
     required this.createdAt,
   });
 

@@ -15,7 +15,7 @@ class WorkspacesRepository {
 
   Future<List<Account>> fetchMembers({
     String? workspaceId,
-    bool local: false,
+    bool local = false,
   }) async {
     workspaceId = workspaceId ?? Globals.instance.workspaceId;
 
@@ -87,7 +87,7 @@ class WorkspacesRepository {
 
   Stream<List<Workspace>> fetch({
     String? companyId,
-    bool localOnly: false,
+    bool localOnly = false,
   }) async* {
     if (companyId == null) companyId = Globals.instance.companyId;
 

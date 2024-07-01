@@ -72,8 +72,8 @@ class Account extends BaseModel {
   factory Account.fromJson({
     required Map<String, dynamic> json,
     // for future use, in case if composite fields are added
-    bool jsonify: false,
-    bool transform: false,
+    bool jsonify = false,
+    bool transform = false,
   }) {
     if (transform) {
       json = ApiDataTransformer.account(json: json);
@@ -87,7 +87,7 @@ class Account extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: false}) {
+  Map<String, dynamic> toJson({stringify = false}) {
     var json = _$AccountToJson(this);
     return json;
   }

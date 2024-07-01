@@ -1,3 +1,5 @@
+// import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:twake/models/authentication/authentication.dart';
 import 'package:twake/models/globals/globals.dart';
@@ -51,19 +53,22 @@ class AuthenticationRepository {
     AuthorizationTokenResponse? tokenResponse;
 
     while (true) {
+      debugPrint("Globals.instance.oidcAuthority ${Globals.instance.oidcAuthority}");
+      debugPrint("Globals.instance.oidcAuthority ${Globals.instance.clientId}");
       try {
         tokenResponse = await _appAuth.authorizeAndExchangeCode(
           AuthorizationTokenRequest(
-            'twakemobile', // Globals.instance.clientId!,
+            "twakemobile", // Globals.instance.clientId!,
             'twakemobile.com://oauthredirect',
             discoveryUrl:
-                '${Globals.instance.oidcAuthority}/.well-known/openid-configuration',
+                '${Globals.instance.oidcAuthority}.well-known/openid-configuration',
             scopes: ['openid', 'profile', 'email', 'offline_access'],
             preferEphemeralSession: true,
             promptValues: ['consent'],
             responseMode: 'query',
           ),
         );
+        debugPrint("tokenResponse ${tokenResponse?.accessToken}");
       } catch (e, ss) {
         Logger().wtf('Error authenticating via console\n$e\n$ss');
         return false;

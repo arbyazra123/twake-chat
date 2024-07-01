@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:logger/logger.dart';
 import 'package:twake/blocs/file_cubit/download/file_download_state.dart';
 import 'package:twake/models/file/download/file_downloading.dart';
@@ -127,15 +129,15 @@ class FileDownloadCubit extends Cubit<FileDownloadState> {
     if (fileDownloaded != null && fileDownloaded!.savedPath != null) {
       if (fileDownloaded!.file != null) {
         if (fileDownloaded!.file!.metadata.mime.isImageMimeType) {
-          await GallerySaver.saveImage(fileDownloaded!.savedPath!);
+          await ImageGallerySaver.saveFile(fileDownloaded!.savedPath!);
         } else if (fileDownloaded!.file!.metadata.mime.isVideoMimeType) {
-          await GallerySaver.saveVideo(fileDownloaded!.savedPath!);
+          await ImageGallerySaver.saveFile(fileDownloaded!.savedPath!);
         }
       } else {
         if (fileDownloaded!.messageFile!.metadata.mime.isImageMimeType) {
-          await GallerySaver.saveImage(fileDownloaded!.savedPath!);
+          await ImageGallerySaver.saveFile(fileDownloaded!.savedPath!);
         } else if (fileDownloaded!.messageFile!.metadata.mime.isVideoMimeType) {
-          await GallerySaver.saveVideo(fileDownloaded!.savedPath!);
+          await ImageGallerySaver.saveFile(fileDownloaded!.savedPath!);
         }
       }
     }

@@ -3,9 +3,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_alice/alice.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +15,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:twake/config/styles_config.dart';
 import 'package:twake/di/home_binding.dart';
 import 'package:twake/di/main_bindings.dart';
+import 'package:twake/firebase_options.dart';
 import 'package:twake/repositories/language_repository.dart';
 import 'package:twake/repositories/theme_repository.dart';
 import 'package:twake/routing/route_pages.dart';
@@ -21,23 +24,28 @@ import 'package:twake/services/service_bundle.dart';
 import 'package:twake/utils/platform_detection.dart';
 import 'package:twake/widgets/common/pull_to_refresh_header.dart';
 
+Alice alice = Alice(
+  showNotification: true,
+  notificationIcon: "ic_notification",
+  darkTheme: true
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await dotenv.load(fileName: ".firebase.env");
+  await FlutterLocalNotificationsPlugin().initialize(InitializationSettings(
+      android: AndroidInitializationSettings("ic_notification")));
+  await FlutterLocalNotificationsPlugin()
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.requestNotificationsPermission();
+  // await dotenv.load(fileName: ".firebase.env");
   try {
-    String apiKey = dotenv.get('API_KEY');
-    String appId = dotenv.get('APP_ID');
-    String messagingSenderId = dotenv.get('MESSAGE_SENDER_ID');
-    String projectId = dotenv.get('PROJECT_ID');
+    // String apiKey = dotenv.get('API_KEY');
+    // String appId = dotenv.get('APP_ID');
+    // String messagingSenderId = dotenv.get('MESSAGE_SENDER_ID');
+    // String projectId = dotenv.get('PROJECT_ID');
     await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: apiKey,
-        appId: appId,
-        messagingSenderId: messagingSenderId,
-        projectId: projectId,
-      ),
-    );
+        options: DefaultFirebaseOptions.currentPlatform);
   } on FirebaseException catch (e) {
     if (e.code == 'duplicate-app' && Firebase.apps.isNotEmpty) {
       Logger().log(Level.info, 'Firebase initialized from persisted instance');
@@ -83,6 +91,7 @@ void main() async {
       // trigger load more by BallisticScrollActivity
 
       child: GetMaterialApp(
+        navigatorKey: alice.getNavigatorKey(),
         theme: StylesConfig.lightTheme,
         darkTheme: StylesConfig.darkTheme,
         themeMode: themeMode,
@@ -111,6 +120,19 @@ void main() async {
         getPages: routePages,
         initialRoute: RoutePaths.initial,
         initialBinding: HomeBinding(),
+        builder: (context, child) => Stack(children: [
+          child ?? SizedBox(),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: IconButton(
+              onPressed: () {
+                alice.showInspector();
+              },
+              icon: Icon(Icons.info),
+            ),
+          ),
+        ]),
       ),
     ),
   );

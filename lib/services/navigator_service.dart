@@ -131,7 +131,7 @@ class NavigatorService {
   }
 
   Future<void> navigateToChannel(
-      {required String channelId, bool isReconnection: false}) async {
+      {required String channelId, bool isReconnection = false}) async {
     final channel = await directsCubit.getChannel(channelId: channelId);
     pinnedMessageCubit.init();
     if (!isReconnection) channelMessagesCubit.reset();

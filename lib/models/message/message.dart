@@ -170,7 +170,7 @@ class Message extends BaseModel {
     required this.blocks,
     required this.reactions,
     required this.files,
-    this.delivery: Delivery.delivered,
+    this.delivery = Delivery.delivered,
     this.firstName,
     this.lastName,
     this.picture,
@@ -189,8 +189,8 @@ class Message extends BaseModel {
 
   factory Message.fromJson(
     Map<String, dynamic> json, {
-    bool jsonify: true,
-    bool transform: false,
+    bool jsonify = true,
+    bool transform = false,
     String? channelId,
   }) {
     // message retrieved from sqlite database will have
@@ -208,7 +208,7 @@ class Message extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) {
+  Map<String, dynamic> toJson({stringify = true}) {
     var json = _$MessageToJson(this);
     // message that is to be stored to sqlite database should have
     // it's composite fields json string encoded, because sqlite doesn't support

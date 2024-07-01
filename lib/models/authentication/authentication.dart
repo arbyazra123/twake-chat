@@ -46,7 +46,7 @@ class Authentication extends BaseModel {
       _$AuthenticationFromJson(json);
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) {
+  Map<String, dynamic> toJson({stringify = true}) {
     return _$AuthenticationToJson(this);
   }
 }

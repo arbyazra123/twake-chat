@@ -12,7 +12,7 @@ class Badge extends BaseModel {
   Badge({
     required this.type,
     required this.id,
-    this.count: 0,
+    this.count = 0,
   });
 
   factory Badge.fromJson({required Map<String, dynamic> json}) {
@@ -20,7 +20,7 @@ class Badge extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({bool stringify: false}) {
+  Map<String, dynamic> toJson({bool stringify = false}) {
     return _$BadgeToJson(this);
   }
 

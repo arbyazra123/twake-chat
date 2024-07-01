@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
@@ -126,7 +128,7 @@ class Globals extends BaseModel {
 
   factory Globals({
     required String host,
-    ChannelsType channelsType: ChannelsType.commons,
+    ChannelsType channelsType = ChannelsType.commons,
     String? token,
     required String fcmToken,
     String? userId,
@@ -219,7 +221,7 @@ class Globals extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) => _$GlobalsToJson(this);
+  Map<String, dynamic> toJson({stringify = true}) => _$GlobalsToJson(this);
 
   void closeStream() async {
     await _connection.close();

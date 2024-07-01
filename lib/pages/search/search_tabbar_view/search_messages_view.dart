@@ -9,7 +9,7 @@ import 'package:twake/repositories/search_repository.dart';
 
 class SearchMessagesView extends StatefulWidget {
   final bool isAllTab;
-  SearchMessagesView({this.isAllTab: false});
+  SearchMessagesView({this.isAllTab = false});
   @override
   State<SearchMessagesView> createState() => _SearchMessagesViewState();
 }

@@ -270,7 +270,7 @@ class SynchronizationService {
 
   void subscribeToMessages({
     required String channelId,
-    bool isDirect: false,
+    bool isDirect = false,
   }) async {
     if (!Globals.instance.isNetworkConnected)
       throw Exception('Should not be called with no active connection');
@@ -313,7 +313,7 @@ class SynchronizationService {
 
   void unsubscribeFromMessages({
     required String channelId,
-    bool isDirect: false,
+    bool isDirect = false,
   }) {
     final room = sprintf('/companies/%s/workspaces/%s/channels/%s/feed', [
       Globals.instance.companyId,

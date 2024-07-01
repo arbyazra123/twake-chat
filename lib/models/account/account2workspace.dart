@@ -14,7 +14,7 @@ class Account2Workspace extends BaseModel {
       _$Account2WorkspaceFromJson(json);
 
   @override
-  Map<String, dynamic> toJson({stringify: false}) {
+  Map<String, dynamic> toJson({stringify = false}) {
     return _$Account2WorkspaceToJson(this);
   }
 }

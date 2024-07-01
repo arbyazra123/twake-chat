@@ -9,12 +9,12 @@ class ChannelsRepository {
   final _storage = StorageService.instance;
   final String endpoint;
 
-  ChannelsRepository({this.endpoint: Endpoint.channels});
+  ChannelsRepository({this.endpoint = Endpoint.channels});
 
   Stream<List<Channel>> fetch({
     required String companyId,
     required String workspaceId,
-    bool localOnly: false,
+    bool localOnly = false,
   }) async* {
     final lchannels =
         await fetchLocal(companyId: companyId, workspaceId: workspaceId);
@@ -100,7 +100,7 @@ class ChannelsRepository {
   }
 
   Future<Channel> create(
-      {required Channel channel, bool isDefault: false}) async {
+      {required Channel channel, bool isDefault = false}) async {
     final options = isDefault
         ? {}
         : {'members': channel.members..add(Globals.instance.userId!)};
@@ -164,7 +164,7 @@ class ChannelsRepository {
     );
   }
 
-  Future<void> delete({required Channel channel, bool syncRemote: true}) async {
+  Future<void> delete({required Channel channel, bool syncRemote = true}) async {
     final data = channel.toJson();
 
     if (syncRemote) await _api.delete(endpoint: endpoint, data: data);

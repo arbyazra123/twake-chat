@@ -257,12 +257,12 @@ class MessagesRepository {
     required List<dynamic> prepared,
     required String threadId,
     required int now,
-    List<dynamic> files: const [],
+    List<dynamic> files = const [],
     Message? quoteMessage,
     String? originalStr,
     String? companyId,
     String? workspaceId,
-    bool isDirect: false,
+    bool isDirect = false,
   }) async* {
     final result = await _storage.first(
       table: Table.account,
@@ -391,7 +391,7 @@ class MessagesRepository {
 
   Stream<Message> resend({
     required Message message,
-    bool isDirect: false,
+    bool isDirect = false,
   }) async* {
     message.delivery = Delivery.inProgress;
     final now = DateTime.now().millisecondsSinceEpoch;

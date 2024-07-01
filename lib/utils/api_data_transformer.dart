@@ -135,7 +135,7 @@ class ApiDataTransformer {
 
   static Map<String, dynamic> apiMessage({
     required Message message,
-    bool removeIds: true,
+    bool removeIds = true,
   }) {
     final json = message.toJson(stringify: false);
     if (removeIds) {

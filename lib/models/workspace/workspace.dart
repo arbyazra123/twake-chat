@@ -32,8 +32,8 @@ class Workspace extends BaseModel {
 
   factory Workspace.fromJson({
     required Map<String, dynamic> json,
-    bool jsonify: false,
-    bool transform: false,
+    bool jsonify = false,
+    bool transform = false,
   }) {
     // need to adjust the json structure before trying to map it to model
     if (transform) {
@@ -43,7 +43,7 @@ class Workspace extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) {
+  Map<String, dynamic> toJson({stringify = true}) {
     var json = _$WorkspaceToJson(this);
     return json;
   }

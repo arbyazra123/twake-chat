@@ -54,7 +54,7 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
   Future<void> fetch({
     required String channelId,
     String? threadId,
-    isDirect: false,
+    isDirect = false,
   }) async {
     this.isDirect = isDirect;
     if (isDirect) {
@@ -240,7 +240,7 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
     }
   }
 
-  Future<void> resend({required Message message, bool isDirect: false}) async {
+  Future<void> resend({required Message message, bool isDirect = false}) async {
     _sendInProgress += 1;
 
     final sendStream = _repository.resend(
@@ -281,9 +281,9 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
 
   Future<void> sendInSharing({
     String? originalStr,
-    List<dynamic> attachments: const [],
+    List<dynamic> attachments = const [],
     String? threadId,
-    bool isDirect: false,
+    bool isDirect = false,
     String? companyId,
     String? workspaceId,
     String? channelId,
@@ -307,9 +307,9 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
 
   Future<void> send(
       {String? originalStr,
-      List<dynamic> attachments: const [],
+      List<dynamic> attachments = const [],
       String? threadId,
-      bool isDirect: false,
+      bool isDirect = false,
       Message? quoteMessage}) async {
     final prepared = TwacodeParser(originalStr ?? '').message;
     final fakeId = DateTime.now().millisecondsSinceEpoch.toString();
@@ -421,7 +421,7 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
   Future<void> edit({
     required Message message,
     required String editedText,
-    List<dynamic> newAttachments: const [],
+    List<dynamic> newAttachments = const [],
     String? threadId,
   }) async {
     final prepared = TwacodeParser(editedText).message;
@@ -498,7 +498,7 @@ abstract class BaseMessagesCubit extends Cubit<MessagesState> {
     _repository.react(message: message, reaction: unreacted ? '' : reaction);
   }
 
-  Future<void> delete({required Message message, bool local: false}) async {
+  Future<void> delete({required Message message, bool local = false}) async {
     if (this.state is! MessagesLoadSuccess) return;
 
     final messages = (this.state as MessagesLoadSuccess).messages;

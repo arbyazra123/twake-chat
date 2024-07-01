@@ -3,5 +3,5 @@
 abstract class BaseModel {
   const BaseModel();
 
-  Map<String, dynamic> toJson({bool stringify: true});
+  Map<String, dynamic> toJson({bool stringify = true});
 }

@@ -29,7 +29,7 @@ class WorkspacesCubit extends Cubit<WorkspacesState> {
   Future<void> fetch({
     String? companyId,
     String? selectedId,
-    bool localOnly: false,
+    bool localOnly = false,
   }) async {
     emit(WorkspacesLoadInProgress());
 
@@ -99,7 +99,7 @@ class WorkspacesCubit extends Cubit<WorkspacesState> {
   }
 
   Future<List<Account>> fetchMembers(
-      {String? workspaceId, bool local: false}) async {
+      {String? workspaceId, bool local = false}) async {
     final members = await _repository.fetchMembers(
       workspaceId: workspaceId,
       local: local,

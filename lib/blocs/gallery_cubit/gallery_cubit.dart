@@ -14,7 +14,7 @@ class GalleryCubit extends Cubit<GalleryState> {
   GalleryCubit()
       : super(GalleryState(galleryStateStatus: GalleryStateStatus.init));
 
-  void getGalleryAssets({bool isGettingNewAssets: false}) async {
+  void getGalleryAssets({bool isGettingNewAssets = false}) async {
     List<Uint8List> uint8List = [...state.assetsList];
     List<File> fileList = [...state.fileList];
     List<AssetEntity> recentAssets = [...state.assetEntity];

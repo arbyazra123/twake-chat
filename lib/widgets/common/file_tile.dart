@@ -32,7 +32,7 @@ class FileTile extends StatefulWidget {
   FileTile({
     required this.fileId,
     required this.isMyMessage,
-    this.isLimitedSize: false,
+    this.isLimitedSize = false,
   }) : super(key: ValueKey(fileId));
 
   @override

@@ -18,7 +18,7 @@ class MessagesLoadSuccess extends MessagesState {
   final bool isInHistory;
 
   const MessagesLoadSuccess(
-      {required this.messages, required this.hash, this.isInHistory: false});
+      {required this.messages, required this.hash, this.isInHistory = false});
 
   @override
   List<Object?> get props => [hash];

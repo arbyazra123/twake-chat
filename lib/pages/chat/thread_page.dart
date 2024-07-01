@@ -18,7 +18,7 @@ import 'messages_thread_list.dart';
 class ThreadPage<T extends BaseChannelsCubit> extends StatefulWidget {
   final bool autofocus;
 
-  const ThreadPage({this.autofocus: false});
+  const ThreadPage({this.autofocus = false});
 
   @override
   _ThreadPageState<T> createState() => _ThreadPageState<T>();

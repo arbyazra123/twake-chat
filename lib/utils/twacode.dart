@@ -590,7 +590,7 @@ class TwacodeRenderer {
     required this.fileIds,
     required this.messageLinks,
     required TextStyle parentStyle,
-    this.isLimitedSize: false,
+    this.isLimitedSize = false,
     double userUniqueColor = 0.0,
   }) {
     spans = render(this.twacode, parentStyle, userUniqueColor,

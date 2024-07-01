@@ -206,7 +206,7 @@ class _ComposeBar extends State<ComposeBar> {
     ]);
   }
 
-  void _setSendButtonState({bool stateWithoutFileUploading: false}) {
+  void _setSendButtonState({bool stateWithoutFileUploading = false}) {
     setState(() {
       _canSend = stateWithoutFileUploading;
     });

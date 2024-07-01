@@ -28,8 +28,8 @@ class FileChannelTile extends StatefulWidget {
       required this.senderName,
       this.onTap,
       this.messageFile,
-      this.onlyImage: false,
-      this.fileTileHeight: 76})
+      this.onlyImage = false,
+      this.fileTileHeight = 76})
       : super(key: ValueKey(fileId));
 
   @override

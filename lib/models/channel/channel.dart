@@ -95,14 +95,14 @@ class Channel extends BaseModel {
       required this.lastActivity,
       required this.membersCount,
       required this.role,
-      this.userLastAccess: 0,
+      this.userLastAccess = 0,
       this.draft,
       this.stats});
 
   factory Channel.fromJson({
     required Map<String, dynamic> json,
-    bool jsonify: true,
-    bool transform: false,
+    bool jsonify = true,
+    bool transform = false,
   }) {
     // message retrieved from sqlite database will have
     // it's composite fields json string encoded, so there's a
@@ -149,7 +149,7 @@ class Channel extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) {
+  Map<String, dynamic> toJson({stringify = true}) {
     var json = _$ChannelToJson(this);
     // message that is to be stored to sqlite database should have
     // it's composite fields json string encoded, because sqlite doesn't support

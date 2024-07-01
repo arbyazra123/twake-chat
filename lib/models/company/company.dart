@@ -41,8 +41,8 @@ class Company extends BaseModel {
 
   factory Company.fromJson({
     required Map<String, dynamic> json,
-    bool jsonify: false,
-    bool tranform: false,
+    bool jsonify = false,
+    bool tranform = false,
   }) {
     // need to adjust the json structure before trying to map it to model
     if (tranform) {
@@ -53,7 +53,7 @@ class Company extends BaseModel {
   }
 
   @override
-  Map<String, dynamic> toJson({stringify: true}) {
+  Map<String, dynamic> toJson({stringify = true}) {
     var json = _$CompanyToJson(this);
     return json;
   }

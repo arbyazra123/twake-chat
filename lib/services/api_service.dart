@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_alice/alice.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:twake/main.dart';
 import 'package:twake/models/globals/globals.dart';
 import 'package:twake/services/service_bundle.dart';
 
 class ApiService {
   static late ApiService _service;
   late final Dio _dio;
+  
 
   factory ApiService({required bool reset}) {
     if (reset) {
       _service = ApiService._();
     }
+
     return _service;
   }
 
@@ -22,6 +26,7 @@ class ApiService {
       connectTimeout: Duration(minutes: 1), // 60 seconds to connect
       receiveTimeout: Duration(seconds: 30), // 30 seconds to receive data
     ));
+    _dio.interceptors.add(alice.getDioInterceptor());
 
     void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
       options.baseUrl = Globals.instance.host;
@@ -91,7 +96,7 @@ class ApiService {
 
   Future<dynamic> get({
     required String endpoint,
-    Map<String, dynamic> queryParameters: const {},
+    Map<String, dynamic> queryParameters = const {},
     CancelToken? cancelToken,
     String? key,
   }) async {
@@ -105,7 +110,7 @@ class ApiService {
 
   Future<dynamic> post({
     required String endpoint,
-    Map<String, dynamic> queryParameters: const {},
+    Map<String, dynamic> queryParameters = const {},
     required dynamic data,
     Function(int, int)? onSendProgress,
     CancelToken? cancelToken,
